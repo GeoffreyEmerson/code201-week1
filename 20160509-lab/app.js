@@ -7,7 +7,9 @@ var mainQuiz = [
   ['How many states are in the U.S.?', 50],
   ['What is the name of the planet closest to the sun?', 'Mercury'],
   ['What number am I thinking of?', 42],
-  ['Where is Jim Morrison buried?', 'Paris']
+  ['What city is Jim Morrison buried in?', 'Paris'],
+  ['What is the world\'s smallest country?', 'Vatican City'],
+  ['Earth\'s atmosphere is mostly what element?', 'Nitrogen']
 ];
 
 // track how many questions have been answered
@@ -23,14 +25,14 @@ document.getElementById('greeting').textContent = 'Hi, ' + player_name + '! Here
 var html_string;
 console.log(mainQuiz.length);
 for (var i = 0; i < mainQuiz.length; i++) {
-  html_string = '<form><p>';
+  html_string = '<p>';
   html_string += '<label for=\"question' + i + '\">' + mainQuiz[i][0] + ' </label>';
   html_string += '<input name=\"question' + i + '\" id=\"question' + i + '\" required>';
   html_string += '<span id=\"span' + i + '\">';
-  html_string += '<button onclick=\"check(' + i + '); return false;\">';
+  html_string += '<button onclick=\"event.preventDefault(); check(' + i + '); return false;\">';
   html_string += 'Guess</button>';
   html_string += '</span>';
-  html_string += '</p></form>';
+  html_string += '</p>';
   document.getElementById('responsiveQuiz').innerHTML += html_string;
 }
 
@@ -38,8 +40,13 @@ for (var i = 0; i < mainQuiz.length; i++) {
 function check(ans){
   var user_ans = document.getElementById('question' + ans).value;
   console.log('User answered ' + user_ans + ' for question ' + ans);
-  if (user_ans == mainQuiz[ans][1]) {
-    var response = ' ' + user_ans + ' is correct!';
+  var array_ans = mainQuiz[ans][1];
+  if (typeof(user_ans) == 'string' && typeof(array_ans) == 'string') {
+    user_ans = user_ans.toLowerCase();
+    array_ans = array_ans.toLowerCase();
+  }
+  if (user_ans == array_ans) {
+    var response = ' ' + mainQuiz[ans][1] + ' is correct!';
     correctAnswers++;
   } else {
     var response = ' Sorry, the answer is ' + mainQuiz[ans][1] + '.';
