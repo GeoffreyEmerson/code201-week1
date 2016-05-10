@@ -6,7 +6,8 @@
 var main_quiz = [
   ['What is Geoff\'s last name?', 'Emerson'],
   ['Whate state is Geoff from?', 'California'],
-  ['How old is Geoff?', 43]
+  ['How old is Geoff?', 43],
+  ['Is Geoff 6\'4\" tall? (Yes/No)', 'Yes']
 ];
 
 // set up variables and dom queries
