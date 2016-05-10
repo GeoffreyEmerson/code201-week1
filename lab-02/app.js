@@ -5,7 +5,7 @@
 // all questions and answers are separate arrays within the main array
 var main_quiz = [
   ['What is Geoff\'s last name?', 'Emerson'],
-  ['Whate state is Geoff from?', 'California'],
+  ['What state is Geoff from?', 'California'],
   ['How old is Geoff?', 43],
   ['Is Geoff 6\'4\" tall? (Yes/No)', 'Yes']
 ];
@@ -106,11 +106,16 @@ function check(ans){
 function check_done() {
   if (answer_total == main_quiz.length) {
     html_string = '<h2>You answered all the questions!</h2>';
-    html_string += '<h3>You got ' + correct_answers + ' correct answers!';
+    html_string += '<h3>You got ' + correct_answers + ' correct answers out of ' + main_quiz.length + '!';
     if (needed_help == true) {
       html_string += ' (With a little help.)'; 
     }
     html_string += '</h3>';
+    if (correct_answers > 1) {
+      html_string += '<h2>Congrats! Thanks for playing, ' + player_name + '!</h2>';
+    } else {
+      html_string += '<h2>You suck, ' + player_name + '.</h2>';
+    }
     document.getElementById('finished').innerHTML = html_string;
   }
 }
