@@ -7,7 +7,8 @@ var main_quiz = [
   ['What is Geoff\'s last name?', 'Emerson'],
   ['What state is Geoff from?', 'California'],
   ['How old is Geoff?', 43],
-  ['Is Geoff 6\'4\" tall? (Yes/No)', 'Yes']
+  ['Is Geoff 6\'4\" tall? (Yes/No)', 'Yes'],
+  ['Complete the sentence: Geoff is _______.', ['Tall', 'Cool', 'Awesome', 'Smart', 'Really really ridiculously good looking']]
 ];
 
 // set up variables and dom queries
@@ -21,12 +22,12 @@ var player_name_div = document.getElementById('player_name');
 
 // greet player and ask for the player's name
 greeting_div.textContent = 'Hello! And welcome to the Lab 2 Quiz: All About Geoff!';
-html_string = '<h2>';
+html_string = '<form><h2>';
 html_string += '<label for=\"player_name\">Player, what is your name? </label>';
 html_string += '<input name=\"player_name\" id=\"name\"required>';
 html_string += '<button onclick=\"event.preventDefault(); get_player_name(); return false;\">';
 html_string += 'Start Quiz</button>';
-html_string += '</h2>';
+html_string += '</h2></form>';
 player_name_div.innerHTML = html_string;
 document.getElementById('name').focus();
 
@@ -46,14 +47,14 @@ function get_player_name() {
 function start_quiz() {
   console.log(main_quiz.length);
   for (var i = 0; i < main_quiz.length; i++) {
-    html_string = '<p>';
+    html_string = '<form><p>';
     html_string += '<label for=\"question' + i + '\">' + main_quiz[i][0] + ' </label>';
     html_string += '<input name=\"question' + i + '\" id=\"question' + i + '\" required>';
     html_string += '<span id=\"span' + i + '\">';
     html_string += '<button onclick=\"event.preventDefault(); check(' + i + '); return false;\">';
     html_string += 'Guess</button><span id=\"error' + i + '\"></span>';
     html_string += '</span>';
-    html_string += '</p>';
+    html_string += '</p></form>';
     document.getElementById('responsive_quiz').innerHTML += html_string;
   }
   document.getElementById('question0').focus();
@@ -63,9 +64,28 @@ function start_quiz() {
 function check(ans){
   var user_ans_div = document.getElementById('question' + ans);
   var user_ans = user_ans_div.value;
-  console.log('User answered ' + user_ans + ' for question ' + ans);
+  console.log('User answered ' + user_ans + ' for question ' + main_quiz[ans][0]);
   var array_ans = main_quiz[ans][1];
-  if (typeof(user_ans) == 'string' && typeof(array_ans) == 'string') {
+  if (typeof(array_ans) == 'object') {
+    var lower_case_array = array_ans.map(function(value) {
+      return value.toLowerCase();
+    });
+    var ans_index = lower_case_array.indexOf(user_ans.toLowerCase());
+    if (ans_index >= 0) {
+      html_string = ' ' + main_quiz[ans][1][ans_index] + ' is correct!';
+      correct_answers++;
+    } else {
+      html_string = ' Well, maybe. But I was looking for something more like ';
+      for (var i = 0; i < main_quiz[ans][1].length-1; i++) {
+        html_string += main_quiz[ans][1][i] + ", ";
+      }
+      html_string += 'or ' + main_quiz[ans][1][main_quiz[ans][1].length-1] + '.';
+    }
+    user_ans_div.disabled = true;
+    document.getElementById('span' + ans).innerHTML = html_string;
+    answer_total++;
+    check_done();
+  } else if (typeof(user_ans) == 'string' && typeof(array_ans) == 'string') {
     if (user_ans.toLowerCase() == array_ans.toLowerCase()) {
       html_string = ' ' + main_quiz[ans][1] + ' is correct!';
       correct_answers++;
