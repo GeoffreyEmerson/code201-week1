@@ -12,6 +12,7 @@ var main_quiz = [
 ];
 
 // set up variables and dom queries
+var current_question = 0;
 var answer_total = 0;
 var correct_answers = 0;
 var needed_help = false;
@@ -39,25 +40,41 @@ function get_player_name() {
     html_string += 'Welcome, ' + player_name + '! Here are the questions:';
     html_string += '</h2>';
     player_name_div.innerHTML = html_string;
-    start_quiz();
+    next_question();
   }
 }
 
-// Populate the quiz questions and input fields
-function start_quiz() {
-  console.log(main_quiz.length);
-  for (var i = 0; i < main_quiz.length; i++) {
+// // Populate the quiz questions and input fields
+// function start_quiz() {
+//   for (var i = 0; i < main_quiz.length; i++) {
+//     html_string = '<form><p>';
+//     html_string += '<label for=\"question' + i + '\">' + main_quiz[i][0] + ' </label>';
+//     html_string += '<input name=\"question' + i + '\" id=\"question' + i + '\" required>';
+//     html_string += '<span id=\"span' + i + '\">';
+//     html_string += '<button onclick=\"event.preventDefault(); check(' + i + '); return false;\">';
+//     html_string += 'Guess</button><span id=\"error' + i + '\"></span>';
+//     html_string += '</span>';
+//     html_string += '</p></form>';
+//     document.getElementById('responsive_quiz').innerHTML += html_string;
+//   }
+// }
+
+function next_question() {
+  if (current_question < main_quiz.length) {
+    var new_div = document.createElement('div');
     html_string = '<form><p>';
-    html_string += '<label for=\"question' + i + '\">' + main_quiz[i][0] + ' </label>';
-    html_string += '<input name=\"question' + i + '\" id=\"question' + i + '\" required>';
-    html_string += '<span id=\"span' + i + '\">';
-    html_string += '<button onclick=\"event.preventDefault(); check(' + i + '); return false;\">';
-    html_string += 'Guess</button><span id=\"error' + i + '\"></span>';
+    html_string += '<label for=\"question' + current_question + '\">' + main_quiz[current_question][0] + ' </label>';
+    html_string += '<input name=\"question' + current_question + '\" id=\"question' + current_question + '\" required>';
+    html_string += '<span id=\"span' + current_question + '\">';
+    html_string += '<button onclick=\"event.preventDefault(); check(' + current_question + '); return false;\">';
+    html_string += 'Guess</button><span id=\"error' + current_question + '\"></span>';
     html_string += '</span>';
     html_string += '</p></form>';
-    document.getElementById('responsive_quiz').innerHTML += html_string;
+    new_div.innerHTML = html_string;
+    document.getElementById('responsive_quiz').appendChild(new_div);
+    document.getElementById('question' + current_question).focus();
+    current_question++;
   }
-  document.getElementById('question0').focus();
 }
 
 // check the user's answer against the answer in the array
@@ -137,5 +154,7 @@ function check_done() {
       html_string += '<h2>You suck, ' + player_name + '.</h2>';
     }
     document.getElementById('finished').innerHTML = html_string;
+  } else {
+    next_question();
   }
 }
