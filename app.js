@@ -3,7 +3,7 @@
 // Wednesday May 11, 2016
 
 // all questions are element 0, and answers are always an array of possible answers
-var main_quiz = [
+var quiz_array = [
   ['What is Geoff\'s last name?', ['Emerson']],
   ['What state is Geoff from?', ['California','CA']],
   ['How old is Geoff?', [43]],
@@ -19,11 +19,9 @@ var already_low; // also tracks user hints for number guessing
 var needed_help; // boolean that tracks whether the player needed help guessing a number
 var player_name; // no idea what this tracks
 var body = document.body;  // this could change if I add an html template
+var html_stash; // keep a record of the default html
 
-// kick it
-main();
-
-function main() {
+function game() {
   initialize_globals();
   welcome();
   request_player_name();
@@ -37,6 +35,7 @@ function initialize_globals() {
   already_low = false;
   needed_help = false;
   player_name = '';
+  html_stash = body.innerHTML;
   body.innerHTML = '';
 }
 
@@ -51,7 +50,7 @@ function add_div(html, focus_id) {
 }
 
 function welcome() {
-  var html_string = '<h1>Hello! And welcome to the Lab 2 Quiz: All About Geoff!</h1>';
+  var html_string = '<h1>Hello! And welcome to the All About Geoff! Quiz</h1>';
   add_div(html_string);
 }
 
@@ -84,7 +83,7 @@ function get_player_name() {
 function show_question(question_num) {
   var html_string = '<form><p>';
   html_string += '<label for=\"question' + question_num + '\">';
-  html_string += main_quiz[question_num][0] + ' </label>';
+  html_string += quiz_array[question_num][0] + ' </label>';
   html_string += '<input name=\"question' + question_num + '\" ';
   html_string += 'id=\"question' + question_num + '\" autocomplete=\"off\">';
   html_string += '<span id=\"span' + question_num + '\">';
@@ -99,8 +98,8 @@ function show_question(question_num) {
 function check_answer(question_num){
   var user_input_element = document.getElementById('question' + question_num);
   var user_answer = user_input_element.value;
-  console.log('User answered ' + user_answer + ' for question ' + main_quiz[question_num][0]);
-  var answer_array = main_quiz[question_num][1];
+  console.log('User answered ' + user_answer + ' for question ' + quiz_array[question_num][0]);
+  var answer_array = quiz_array[question_num][1];
 
   // Check in answer arrays for the type of answers (number or strings)
   if (typeof(answer_array[0]) == 'string') {
@@ -110,19 +109,19 @@ function check_answer(question_num){
     });
     var answer_index = lower_case_array.indexOf(user_answer.toLowerCase());
     if (answer_index >= 0) {
-      var html_string = ' ' + main_quiz[question_num][1][answer_index] + ' is correct!';
+      var html_string = ' ' + quiz_array[question_num][1][answer_index] + ' is correct!';
       // give a point!
       correct_answers++;
     } else {
       // Display possible answers for player
-      if (main_quiz[question_num][1].length < 2) {
-        var html_string = ' Sorry, the answer was ' + main_quiz[question_num][1][0];
+      if (quiz_array[question_num][1].length < 2) {
+        var html_string = ' Sorry, the answer was ' + quiz_array[question_num][1][0];
       } else {
         var html_string = ' Sorry, possible answers were ';
-        for (var i = 0; i < main_quiz[question_num][1].length - 1; i++) {
-          html_string += main_quiz[question_num][1][i] + ', ';
+        for (var i = 0; i < quiz_array[question_num][1].length - 1; i++) {
+          html_string += quiz_array[question_num][1][i] + ', ';
         }
-        html_string += 'or ' + main_quiz[question_num][1][main_quiz[question_num][1].length - 1] + '.';
+        html_string += 'or ' + quiz_array[question_num][1][quiz_array[question_num][1].length - 1] + '.';
       }
     }
     user_input_element.disabled = true;
@@ -178,7 +177,7 @@ function check_answer(question_num){
 
 // check to see if the user has answered all the questions
 function check_done() {
-  if (current_question < main_quiz.length) {
+  if (current_question < quiz_array.length) {
     show_question(current_question);
     current_question++;
   } else {
@@ -190,7 +189,7 @@ function check_done() {
 function show_final_score() {
   var html_string = '<h2>You answered all the questions!</h2>';
   html_string += '<h3>You got ' + correct_answers + ' correct answers';
-  html_string += ' out of ' + main_quiz.length + '!';
+  html_string += ' out of ' + quiz_array.length + '!';
   if (needed_help) {
     html_string += ' (With a little help.)';
   }
@@ -200,6 +199,10 @@ function show_final_score() {
   } else {
     html_string += '<h2>You suck, ' + player_name + '.</h2>';
   }
-  html_string += '<p><button id=\"start_over\" onclick=\"main(); return false;\">Start Over</button></p>';
+  html_string += '<p><button id=\"start_over\" onclick=\"restore_page(); return false;\">Done</button></p>';
   add_div(html_string, 'start_over');
+}
+
+function restore_page() {
+  body.innerHTML = html_stash;
 }
