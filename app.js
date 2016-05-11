@@ -16,6 +16,7 @@ var current_question; // tracks quiz flow
 var correct_answers; // tracks points
 var already_high; // tracks user hints for number guessing
 var already_low; // also tracks user hints for number guessing
+var number_guesses; // tracks how many guesses were given for a number (up to 4)
 var needed_help; // boolean that tracks whether the player needed help guessing a number
 var player_name; // no idea what this tracks
 var body = document.body;  // this could change if I add an html template
@@ -33,6 +34,7 @@ function initialize_globals() {
   correct_answers = 0;
   already_high = false;
   already_low = false;
+  number_guesses = 0;
   needed_help = false;
   player_name = '';
   html_stash = body.innerHTML;
@@ -132,6 +134,7 @@ function check_answer(question_num){
   // special high/low game for numerical answers
   else if (typeof(answer_array[0]) == 'number') {
     var correct_number = answer_array[0];
+    number_guesses++;
     if (user_answer == correct_number) {
       html_string = ' ' + correct_number + ' is correct!';
       document.getElementById('span' + question_num).innerHTML = html_string;
@@ -147,7 +150,7 @@ function check_answer(question_num){
       document.getElementById('error' + question_num).innerHTML = html_string;
       already_high = false;
       already_low = false;
-    } else if (user_answer > correct_number) {
+    } else if (user_answer > correct_number && number_guesses < 4) {
       if (already_high) {
         html_string = ' Still too high! Try again.';
       } else {
@@ -157,7 +160,7 @@ function check_answer(question_num){
       }
       needed_help = true;
       document.getElementById('error' + question_num).innerHTML = html_string;
-    } else if (user_answer < correct_number) {
+    } else if (user_answer < correct_number && number_guesses < 4) {
       if (already_low) {
         html_string = ' Still too low! Try again.';
       } else {
@@ -167,6 +170,14 @@ function check_answer(question_num){
       }
       needed_help = true;
       document.getElementById('error' + question_num).innerHTML = html_string;
+    } else if (number_guesses == 4) {
+      var html_string = 'Out of guesses! The answer was ' + correct_number + '.';
+      document.getElementById('span' + question_num).innerHTML = html_string;
+      user_input_element.disabled = true;
+      // reset these in case another number answer occurs
+      already_high = false;
+      already_low = false;
+      check_done();
     } else {
       html_string = ' Please enter a number, no letters.';
       document.getElementById('error' + question_num).innerHTML = html_string;
@@ -191,7 +202,7 @@ function show_final_score() {
   html_string += '<h3>You got ' + correct_answers + ' correct answers';
   html_string += ' out of ' + quiz_array.length + '!';
   if (needed_help) {
-    html_string += ' (With a little help.)';
+    html_string += ' (With hints.)';
   }
   html_string += '</h3>';
   if (correct_answers > 1) {
