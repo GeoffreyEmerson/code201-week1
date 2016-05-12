@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  background-color: #403D3A;
+  color: #DDD;
+}
+
+header {
+  background-color: #C54732;
+}
+
+h1 {
+  margin:0;
+  padding: .3em;
+  font-family: 'Convergence';
+  font-size: 3em;
+  text-align: center;
+  text-shadow:
+       3px 3px 0 #000,
+     -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;
+}
+
+#goal {
+  margin: 0;
+  background-color: #586254;
+  width: 60%;
+  margin: 1em auto;
+  padding: .5em;
+  font-size: 1.5em;
+  text-align: center;
+  border-radius: .4em;
+}
+
+#content {
+  margin: 1em;
+  padding: .5em;
+}
+
+#column-left, #column-right {
+  margin: 1em auto;
+  padding: 1em;
+  background-color: #162425;
+  background-image:
+    linear-gradient(
+      to bottom,
+      #C54732, #f06d06
+    );
+  border-radius: .3em;
+}
+
+#column-left {
+  float:left;
+  width: 55%;
+  font-family: serif;
+  font-size: 1.3em;
+}
+
+#column-right {
+  float: right;
+  width: 35%;
+  font-family: cursive;
+  font-size: 1.2em;
+}
+
+#game {
+  width: 50%;
+  margin: 2em auto;
+  padding: 1em;
+  clear: both;
+  text-align: center;
+  background-color: #f06d06;
+  border-radius: 25px;
+}
+
+#game h3 {
+  font-size: 1.5em;
+  text-shadow:
+      3px 3px 0 #000,
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+     -1px 1px 0 #000,
+      1px 1px 0 #000;
+}
+
+#game p {
+  font-size: 1.2em;
+}
+
+#start_button {
+  font-size: 1.3em;
+  border-radius: 5px;
+}
+
+input {
+  margin: 0 1em;
+}
+
+.padded {
+  padding: 0 2em;
+}
