@@ -7,7 +7,7 @@ var quiz_array = [
   ['What is Geoff\'s last name?', ['Emerson']],
   ['What state is Geoff from?', ['California','CA']],
   ['How old is Geoff?', [43]],
-  ['Is Geoff 6\'4\" tall? (Yes/No)', ['Yes']],
+  ['Is Geoff 6\'4" tall? (Yes/No)', ['Yes']],
   ['Complete the sentence: Geoff is _______.', ['Tall', 'Cool', 'Awesome', 'Smart', 'Really really ridiculously good looking']]
 ];
 
@@ -58,10 +58,10 @@ function welcome() {
 
 // greet player and ask for the player's name
 function request_player_name() {
-  var html_string = '<form><h2>';
-  html_string += '<label for=\"player_name\">Player, what is your name? </label>';
-  html_string += '<input name=\"player_name\" id=\"name\" autocomplete=\"off\">';
-  html_string += '<button onclick=\"event.preventDefault(); get_player_name();\">';
+  var html_string = '<form class="padded"><h2>';
+  html_string += '<label for="player_name">Player, what is your name? </label>';
+  html_string += '<input name="player_name" id="name" autocomplete="off">';
+  html_string += '<button onclick="event.preventDefault(); get_player_name();">';
   html_string += 'Start Quiz</button>';
   html_string += '</h2></form>';
   add_div(html_string, 'name');
@@ -73,7 +73,7 @@ function get_player_name() {
   player_name = user_input_element.value;
   if (player_name) {
     user_input_element.disabled = true;
-    var html_string = '<h2>';
+    var html_string = '<h2 class="padded">';
     html_string += 'Welcome, ' + player_name + '! Here come the questions:';
     html_string += '</h2>';
     add_div(html_string);
@@ -83,14 +83,14 @@ function get_player_name() {
 }
 
 function show_question(question_num) {
-  var html_string = '<form><p>';
-  html_string += '<label for=\"question' + question_num + '\">';
+  var html_string = '<form class="padded"><p>';
+  html_string += '<label for="question' + question_num + '">';
   html_string += quiz_array[question_num][0] + ' </label>';
-  html_string += '<input name=\"question' + question_num + '\" ';
-  html_string += 'id=\"question' + question_num + '\" autocomplete=\"off\">';
-  html_string += '<span id=\"span' + question_num + '\">';
-  html_string += '<button onclick=\"event.preventDefault(); check_answer(' + question_num + ');\">';
-  html_string += 'Guess</button><span id=\"error' + question_num + '\"></span>';
+  html_string += '<input name="question' + question_num + '" ';
+  html_string += 'id="question' + question_num + '" autocomplete="off">';
+  html_string += '<span id="span' + question_num + '">';
+  html_string += '<button onclick="event.preventDefault(); check_answer(' + question_num + ');">';
+  html_string += 'Guess</button><span id="error' + question_num + '"></span>';
   html_string += '</span>';
   html_string += '</p></form>';
   add_div(html_string, 'question' + question_num);
@@ -111,19 +111,19 @@ function check_answer(question_num){
     });
     var answer_index = lower_case_array.indexOf(user_answer.toLowerCase());
     if (answer_index >= 0) {
-      var html_string = ' ' + quiz_array[question_num][1][answer_index] + ' is correct!';
+      var html_string = ' ' + answer_array[answer_index] + ' is correct!';
       // give a point!
       correct_answers++;
     } else {
       // Display possible answers for player
-      if (quiz_array[question_num][1].length < 2) {
-        var html_string = ' Sorry, the answer was ' + quiz_array[question_num][1][0];
+      if (answer_array.length < 2) {
+        var html_string = ' Sorry, the answer was ' + answer_array[0];
       } else {
         var html_string = ' Sorry, possible answers were ';
-        for (var i = 0; i < quiz_array[question_num][1].length - 1; i++) {
-          html_string += quiz_array[question_num][1][i] + ', ';
+        for (var i = 0; i < answer_array.length - 1; i++) {
+          html_string += answer_array[i] + ', ';
         }
-        html_string += 'or ' + quiz_array[question_num][1][quiz_array[question_num][1].length - 1] + '.';
+        html_string += 'or ' + answer_array[answer_array.length - 1] + '.';
       }
     }
     user_input_element.disabled = true;
@@ -198,19 +198,19 @@ function check_done() {
 
 // display message
 function show_final_score() {
-  var html_string = '<h2>You answered all the questions!</h2>';
-  html_string += '<h3>You got ' + correct_answers + ' correct answers';
+  var html_string = '<h2 class="padded">You answered all the questions!</h2>';
+  html_string += '<h3 class="padded">You got ' + correct_answers + ' correct answers';
   html_string += ' out of ' + quiz_array.length + '!';
   if (needed_help) {
     html_string += ' (With hints.)';
   }
   html_string += '</h3>';
   if (correct_answers > 1) {
-    html_string += '<h2>Congrats! Thanks for playing, ' + player_name + '!</h2>';
+    html_string += '<h2 class="padded">Congrats! Thanks for playing, ' + player_name + '!</h2>';
   } else {
-    html_string += '<h2>You suck, ' + player_name + '.</h2>';
+    html_string += '<h2 class="padded">You suck, ' + player_name + '.</h2>';
   }
-  html_string += '<p><button id=\"start_over\" onclick=\"restore_page(); return false;\">Done</button></p>';
+  html_string += '<p class="padded"><button id="start_over" onclick="restore_page(); return false;">Done</button></p>';
   add_div(html_string, 'start_over');
 }
 

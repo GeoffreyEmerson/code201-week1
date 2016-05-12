@@ -2,45 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"></meta>
-  <title>Lab 2 - Quiz about Geoff</title>
+  <title>Geoffrey Emerson - About</title>
+  <link href='https://fonts.googleapis.com/css?family=Convergence' rel='stylesheet' type='text/css'>
+  <link href="main.css" rel="stylesheet">
 </head>
 
 <body>
-  <h1>About Geoffrey Emerson</h1>
-  <p>
-    Geoff is a web developer in Portland, OR. He's currently looking for an
-    position as a junior dev in the Portland Metro area.
-  </p>
-  <h3>Some fun facts about Geoff:</h3>
-  <ul>
-    <li>He started programming on his dad's Vic 20.</li>
-    <li>He is six foot four inches tall!</li>
-    <li>He has a BA in Theatre Arts with an emphasis in Musical Theater!</li>
-    <li>He worked at a video game studio that made SpongeBob video games.</li>
-    <li>He likes to think he looks much younger than his 43 years.</li>
-    <li>Over the years, he has studied many programming languages, including
-      Basic, Turbo Pascal, C, C++, C#, Objective-C, PHP, Ruby, and Javascript.</li>
-    <li>He thinks there's more to life than being really really ridiculously good looking.</li>
-    <li>He grew up in California, and moved to Portland to be closer to family.</li>
-    <li>He is really smart. You should hire him.</li>
-  </ul>
+  <header>
+    <h1>About Geoffrey Emerson</h1>
+  </header>
+  <div class="center">
+    <div id="goal">
+      Geoff is a web developer in Portland, OR. He's currently looking for a
+      position as a junior dev in the Portland Metro area.
+    </div>
+  </div>
+  <div id="content">
+    <div id="column-left">
+      <h3>Some fun facts about Geoff:</h3>
+      <ul>
+        <li>He started programming on his dad's Vic 20.</li>
+        <li>He is six foot four inches tall!</li>
+        <li>He has a BA in Theatre Arts with an emphasis in Musical Theater!</li>
+        <li>He worked at a video game studio that made SpongeBob video games.</li>
+        <li>He likes to think he looks much younger than his 43 years.</li>
+        <li>Over the years, he has studied many programming languages, including
+          Basic, Turbo Pascal, C, C++, C#, Objective-C, PHP, Ruby, and Javascript.</li>
+        <li>He thinks there's more to life than being really really ridiculously good looking.</li>
+        <li>He grew up in California, and moved to Portland to be closer to family.</li>
+        <li>He is really smart. You should hire him.</li>
+      </ul>
+    </div>
 
-  <h3>Geoff's Top Ten Karaoke Songs:</h3>
-  <ol reversed>
-    <li>Animal - Neon Trees</li>
-    <li>Chelsea Dagger - The Fratellis</li>
-    <li>Missing You - John Waite</li>
-    <li>If You're Gone - Matchbox 20</li>
-    <li>Pretty Vegas - INXS</li>
-    <li>Sweet Caroline - Neil Diamond</li>
-    <li>Fat Bottom Girls - Queen</li>
-    <li>Kiss - Tom Jones and Art of Noise</li>
-    <li>F You - Cee Lo Green</li>
-    <li>A Little Less Conversation - JXL Remix</li>
-  </ol>
-  <h3>Hey, you want to play a game with me?</h3>
-  <p>I wrote a quiz based on the information above. Hit the button to start!</p>
-  <p><button onclick="game(); return false;">Play the Quiz</button></p>
+    <div id="column-right">
+      <h3>Geoff's Top Ten Karaoke Songs:</h3>
+      <ol reversed>
+        <li>Animal - Neon Trees</li>
+        <li>Chelsea Dagger - The Fratellis</li>
+        <li>Missing You - John Waite</li>
+        <li>If You're Gone - Matchbox 20</li>
+        <li>Pretty Vegas - INXS</li>
+        <li>Sweet Caroline - Neil Diamond</li>
+        <li>Fat Bottom Girls - Queen</li>
+        <li>Kiss - Tom Jones and Art of Noise</li>
+        <li>F You - Cee Lo Green</li>
+        <li>A Little Less Conversation - JXL Remix</li>
+      </ol>
+    </div>
+
+    <div id="game">
+      <h3>Hey, you want to play a game with me?</h3>
+      <p>I wrote a quiz based on the information above. Hit the button to start!</p>
+      <p><button id="start_button" onclick="game(); return false;">Play the Quiz</button></p>
+    </div>
+  </div>
 </body>
 
 <script src="app.js"></script>
