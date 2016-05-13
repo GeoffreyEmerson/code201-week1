@@ -20,12 +20,14 @@ var number_guesses; // tracks how many guesses were given for a number (up to 4)
 var needed_help; // boolean that tracks whether the player needed help guessing a number
 var player_name; // no idea what this tracks
 var body = document.body;  // this could change if I add an html template
-var html_stash; // keep a record of the default html
+
+game();
 
 function game() {
   initialize_globals();
   welcome();
   request_player_name();
+
   // the rest executes based on user clicks
 }
 
@@ -37,7 +39,6 @@ function initialize_globals() {
   number_guesses = 0;
   needed_help = false;
   player_name = '';
-  html_stash = body.innerHTML;
   body.innerHTML = '';
 }
 
@@ -79,7 +80,6 @@ function get_player_name() {
     add_div(html_string);
     check_done(); // just in case the quiz array is empty
   }
-  return false;
 }
 
 function show_question(question_num) {
@@ -183,7 +183,6 @@ function check_answer(question_num){
       document.getElementById('error' + question_num).innerHTML = html_string;
     }
   }
-  return false;
 } // end of function check_answer()
 
 // check to see if the user has answered all the questions
@@ -210,7 +209,7 @@ function show_final_score() {
   } else {
     html_string += '<h2 class="padded">You suck, ' + player_name + '.</h2>';
   }
-  html_string += '<p class="padded"><button id="start_over" onclick="restore_page(); return false;">Done</button></p>';
+  html_string += '<p class="padded"><a href="index.html"><button id="start_over">Back to Home</button></a></p>';
   add_div(html_string, 'start_over');
 }
 
